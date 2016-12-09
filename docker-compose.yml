@@ -1,0 +1,41 @@
+#version: '1.9'
+
+myjava:
+ build: ./Java
+ tty: true
+
+myjira:
+ build: ./Jira
+ ports:
+  - "8081:8081"
+ tty: true 
+
+myjenkins:
+ build: ./Jenkins
+ links:
+  - myjava
+ ports:
+  - "8080:8080"
+ tty: true
+
+mytomcat:
+ build: ./TomCat
+ links:
+  - myjava
+ ports:
+  - "8082:8080"
+ tty: true
+
+mynexus:
+ build: ./Nexus
+ links:
+  - myjava
+ ports:
+  - "8083:8081"
+ tty: true
+
+myzabbix:
+ build: ./Zabbix
+ ports:
+  - "80:80"
+ tty: true
